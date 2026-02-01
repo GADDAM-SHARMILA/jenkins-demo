@@ -2,10 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                bat 'echo Hello World from Jenkins Pipeline!'
+                git 'https://github.com/GADDAM-SHARMILA/jenkins-demo.git'
             }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building project..."
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo "Running Hello World..."
+                python app.py
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
