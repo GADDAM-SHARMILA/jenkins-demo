@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/YOUR_USERNAME/jenkins-hello-world.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building project..."
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo "Running Hello World..."
+                python hello.py
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
